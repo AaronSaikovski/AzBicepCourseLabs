@@ -1,7 +1,6 @@
-# Module 1: Tooling with Visual Studio Code - Lab01: Configuring Tools
+# Module 2: Introduction to Bicep Templates - Lab01: Define resources using Bicep
 ## Steps:
 
-1. Install Visual Studio Code
-2. Install Git
-3. Install Extensions
-4. Try some shortcuts
+1.	Create a storage account using bicep
+2.	Deploy resources
+3.	Review results
