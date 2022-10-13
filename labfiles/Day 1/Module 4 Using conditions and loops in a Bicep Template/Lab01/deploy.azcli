@@ -1,0 +1,17 @@
+#!/bin/sh
+resourceGroupName="resource-loop-demo-rg"
+location="Australia East"
+
+##Create resource group
+az group create --name $resourceGroupName --location $location
+
+###########################
+
+##Deploy resource group and provision resources
+az deployment group create \
+    --resource-group $resourceGroupName \
+    --template-file "loop-storage-deploy.bicep" \
+    --parameters "loop.storage.parameters.json"  ##--what-if
+
+##Cleanup Resourcegroup
+az group delete --name $resourceGroupName --yes --no-wait

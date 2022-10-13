@@ -1,0 +1,113 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.6.18.56646",
+      "templateHash": "13511436591955513530"
+    }
+  },
+  "parameters": {
+    "location": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "acr-demo",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "name": {
+            "value": "demoazuregistry"
+          },
+          "acrsku": {
+            "value": "Basic"
+          },
+          "location": {
+            "value": "[parameters('location')]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.6.18.56646",
+              "templateHash": "16773964024568840352"
+            }
+          },
+          "parameters": {
+            "name": {
+              "type": "string",
+              "defaultValue": "[format('acr{0}', uniqueString(resourceGroup().id))]",
+              "metadata": {
+                "description": "Provide a globally unique name of your Azure Container Registry"
+              },
+              "maxLength": 50,
+              "minLength": 5
+            },
+            "location": {
+              "type": "string",
+              "defaultValue": "[resourceGroup().location]",
+              "metadata": {
+                "description": "Provide a location for the registry."
+              }
+            },
+            "acrsku": {
+              "type": "string",
+              "defaultValue": "Basic",
+              "allowedValues": [
+                "Basic",
+                "Premium",
+                "Standard"
+              ],
+              "metadata": {
+                "description": "Provide a tier of your Azure Container Registry."
+              }
+            },
+            "tags": {
+              "type": "object",
+              "defaultValue": {},
+              "metadata": {
+                "description": "Tags to be applied to resource when deployed.  Default: None"
+              }
+            }
+          },
+          "resources": [
+            {
+              "type": "Microsoft.ContainerRegistry/registries",
+              "apiVersion": "2021-12-01-preview",
+              "name": "[parameters('name')]",
+              "tags": "[parameters('tags')]",
+              "location": "[parameters('location')]",
+              "sku": {
+                "name": "[parameters('acrsku')]"
+              },
+              "properties": {
+                "adminUserEnabled": false
+              }
+            }
+          ],
+          "outputs": {
+            "outLoginServer": {
+              "type": "string",
+              "value": "[reference(resourceId('Microsoft.ContainerRegistry/registries', parameters('name'))).loginServer]",
+              "metadata": {
+                "description": "Output the login server property for later use"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

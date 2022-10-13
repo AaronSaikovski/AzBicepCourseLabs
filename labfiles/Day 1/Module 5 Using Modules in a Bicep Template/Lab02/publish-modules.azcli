@@ -1,0 +1,24 @@
+#!/bin/sh
+resourceGroupName="storage-modules-demo-rg"
+location="Australia East"
+acrname="demoazuregistry"
+
+##Version release tag f
+moduleReleaseVersion="v1.0.0"
+
+##Create resource group
+az group create --name $resourceGroupName --location $location
+
+#############################
+##Publish Modules to ACR 
+
+##Deploy Azure Container registry for publishing images into
+az deployment group create --resource-group $resourceGroupName --template-file "containerregistry-parameters.bicep" 
+
+#publish Storage Account
+az bicep publish --file 'storage-module.bicep' --target br:$acrname.azurecr.io/bicep/modules/storage/storageaccounts:$moduleReleaseVersion
+
+#############################
+
+##Cleanup Resourcegroup
+#az group delete --name $resourceGroupName --yes --no-wait

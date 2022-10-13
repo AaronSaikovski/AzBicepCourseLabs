@@ -1,0 +1,84 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.6.18.56646",
+      "templateHash": "12889776453511284007"
+    }
+  },
+  "parameters": {
+    "storageAccountType": {
+      "type": "string",
+      "defaultValue": "Standard_LRS",
+      "allowedValues": [
+        "Premium_LRS",
+        "Premium_ZRS",
+        "Standard_GRS",
+        "Standard_GZRS",
+        "Standard_LRS",
+        "Standard_RAGRS",
+        "Standard_RAGZRS",
+        "Standard_ZRS"
+      ],
+      "metadata": {
+        "description": "Storage Account type"
+      }
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]",
+      "metadata": {
+        "description": "Location for all resources."
+      }
+    },
+    "deployStorageAccount": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "Do we deploy the storage account or not?"
+      }
+    },
+    "storageLoopCount": {
+      "type": "int",
+      "defaultValue": 1,
+      "minValue": 1,
+      "metadata": {
+        "description": "Storage loop counter"
+      }
+    }
+  },
+  "resources": [
+    {
+      "condition": "[parameters('deployStorageAccount')]",
+      "copy": {
+        "name": "storageAccountLoop",
+        "count": "[length(range(0, parameters('storageLoopCount')))]"
+      },
+      "type": "Microsoft.Storage/storageAccounts",
+      "apiVersion": "2021-06-01",
+      "name": "[format('{0}storage{1}', range(0, parameters('storageLoopCount'))[copyIndex()], uniqueString(resourceGroup().id))]",
+      "location": "[parameters('location')]",
+      "sku": {
+        "name": "[parameters('storageAccountType')]"
+      },
+      "kind": "StorageV2",
+      "properties": {}
+    }
+  ],
+  "outputs": {
+    "storageInfo": {
+      "type": "array",
+      "copy": {
+        "count": "[length(range(0, parameters('storageLoopCount')))]",
+        "input": {
+          "id": "[resourceId('Microsoft.Storage/storageAccounts', format('{0}storage{1}', range(0, parameters('storageLoopCount'))[range(0, parameters('storageLoopCount'))[copyIndex()]], uniqueString(resourceGroup().id)))]",
+          "name": "[format('{0}storage{1}', range(0, parameters('storageLoopCount'))[range(0, parameters('storageLoopCount'))[copyIndex()]], uniqueString(resourceGroup().id))]",
+          "blobEndpoint": "[reference(resourceId('Microsoft.Storage/storageAccounts', format('{0}storage{1}', range(0, parameters('storageLoopCount'))[range(0, parameters('storageLoopCount'))[copyIndex()]], uniqueString(resourceGroup().id))), '2021-06-01').primaryEndpoints.blob]",
+          "status": "[reference(resourceId('Microsoft.Storage/storageAccounts', format('{0}storage{1}', range(0, parameters('storageLoopCount'))[range(0, parameters('storageLoopCount'))[copyIndex()]], uniqueString(resourceGroup().id))), '2021-06-01').statusOfPrimary]"
+        }
+      }
+    }
+  }
+}
