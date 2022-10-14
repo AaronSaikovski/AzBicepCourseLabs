@@ -1,7 +1,8 @@
-# Module 1: Tooling with Visual Studio Code - Lab01: Configuring Tools
+# Module 3: Build reusable Bicep templates by using parameters - Lab01: Add parameters and variables
 ## Steps:
 
-1. Install Visual Studio Code
-2. Install Git
-3. Install Extensions
-4. Try some shortcuts
+1.	Modify storage account bicep template.
+2.	Add parameters and variables.
+3.	Re-deploy resources.
+4.	Review results
+
