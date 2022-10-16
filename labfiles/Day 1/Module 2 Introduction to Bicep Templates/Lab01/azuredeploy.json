@@ -19,8 +19,7 @@
         "Standard_GZRS",
         "Standard_LRS",
         "Standard_RAGRS",
-        "Standard_RAGZRS",
-        "Standard_ZRS"
+        "Standard_RAGZRS"
       ],
       "metadata": {
         "description": "Storage Account type"
