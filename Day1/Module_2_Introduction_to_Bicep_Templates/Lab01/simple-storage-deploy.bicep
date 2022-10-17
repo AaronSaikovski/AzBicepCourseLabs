@@ -1,14 +1,4 @@
 @description('Storage Account type')
-@allowed([
-  'Premium_LRS'
-  'Premium_ZRS'
-  'Standard_GRS'
-  'Standard_GZRS'
-  'Standard_LRS'
-  'Standard_RAGRS'
-  'Standard_RAGZRS'
-  'Standard_ZRS'
-])
 param storageAccountType string = 'Standard_LRS'
 
 @description('Location for all resources.')

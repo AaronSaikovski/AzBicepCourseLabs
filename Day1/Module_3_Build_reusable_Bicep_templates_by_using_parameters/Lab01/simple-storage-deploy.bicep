@@ -11,13 +11,13 @@
 ])
 param storageAccountType string = 'Standard_LRS'
 
-@description('Location for the storage account.')
+@description('Location for all resources.')
 param location string = resourceGroup().location
 
 @description('The name of the Storage Account')
-param storageAccountName string = 'store${uniqueString(resourceGroup().id)}'
+param storageAccountName string = 'stg${uniqueString(resourceGroup().id)}'
 
-resource sa 'Microsoft.Storage/storageAccounts@2021-06-01' = {
+resource storageAccountName_resource 'Microsoft.Storage/storageAccounts@2021-06-01' = {
   name: storageAccountName
   location: location
   sku: {
@@ -28,4 +28,4 @@ resource sa 'Microsoft.Storage/storageAccounts@2021-06-01' = {
 }
 
 output storageAccountName string = storageAccountName
-output storageAccountId string = sa.id
+output storageAccountId string = storageAccountName_resource.id

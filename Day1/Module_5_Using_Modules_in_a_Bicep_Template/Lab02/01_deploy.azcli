@@ -8,17 +8,10 @@ az group create --name $resourceGroupName --location $location
 
 ###########################
 
-#Deploy resource group and provision resources - Local module
-az deployment group create \
-    --resource-group $resourceGroupName \
-    --template-file "storageaccount-local-parameters.bicep" ##--what-if
-
 #Deploy resource group and provision resources - Remote module
 az deployment group create \
     --resource-group $resourceGroupName \
     --template-file "storageaccount-remote-parameters.bicep" ##--what-if
-
-
 
 ##Cleanup Resourcegroup
 az group delete --name $resourceGroupName --yes --no-wait

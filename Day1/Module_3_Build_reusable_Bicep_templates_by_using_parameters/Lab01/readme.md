@@ -5,4 +5,3 @@
 2.	Add parameters and variables.
 3.	Re-deploy resources.
 4.	Review results
-
