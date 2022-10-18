@@ -1,1 +1,1 @@
-Follow lab guide here: https://docs.microsoft.com/en-au/learn/modules/migrate-azure-resources-bicep/3-exercise-convert-migrate-resources?pivots=powershell
+Follow lab guide here: https://docs.microsoft.com/en-au/learn/modules/deploy-resources-scopes-bicep/7-exercise-deploy-management-group?pivots=powershell
