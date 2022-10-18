@@ -1,4 +1,4 @@
-# Module 6: Migrate Azure resources and ARM templates to Bicep - Lab01: Convert and Migrate resources
+# Module 6: Migrate Azure resources and ARM templates to Bicep - Lab01: Convert and Migrate resources
 ## Steps:
 1. Create a new Virtual machine
 2. Export resource group to JSON Template

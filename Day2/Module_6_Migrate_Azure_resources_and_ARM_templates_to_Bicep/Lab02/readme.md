@@ -1,4 +1,4 @@
-# Module 6: Migrate Azure resources and ARM templates to Bicep - Lab02: Test and deploy your converted template
+# Module 6: Migrate Azure resources and ARM templates to Bicep - Lab02: Test and deploy your converted template
 ## Steps:
 1. Add additional resources to bicep template from previous lab
 2. Add additional subnets to virtual network
